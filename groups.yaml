@@ -1,0 +1,19 @@
+controllables:
+  name: Lights
+  control: hidden # so we don't toggle all at once
+  entities:
+    - light.porch_strip
+    - light.rgb_leds
+    - light.switch_1
+    - light.switch_2
+    - light.switch_3
+
+alarmclock:
+  name: Alarm Clock
+  entities:
+    - sensor.alarm_time
+    - input_number.alarmhour
+    - input_number.alarmminutes
+    - input_boolean.alarmweekday
+    - input_boolean.alarmweekon
+

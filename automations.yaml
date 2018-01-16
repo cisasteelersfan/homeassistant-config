@@ -1,4 +1,5 @@
-- alias: Bedroom Lights On
+- alias: "Bedroom Lights On"
+  hide_entity: True
   trigger:
     - platform: state
       entity_id: device_tracker.18659071a8f4 # colby iphone
@@ -14,10 +15,11 @@
       entity_id: device_tracker.18659071a8f4 # colby iphone
       state: 'home'
   action:
-    service: homeassistant.turn_on
+    service: light.turn_on
     entity_id: light.rgb_leds
 
-- alias: Bedroom Lights Off
+- alias: "Bedroom Lights Off"
+  hide_entity: True
   trigger:
     platform: state
     entity_id: device_tracker.18659071a8f4 # colby iphone
@@ -25,3 +27,52 @@
   action:
     service: homeassistant.turn_off
     entity_id: group.all_lights
+
+- alias: "Wake me up with bedroom lights for weekdays"
+  hide_entity: True
+  trigger:
+    - platform: time
+      minutes: '/1'
+      seconds: 0
+  condition:
+    - condition: state
+      entity_id: input_boolean.alarmweekon
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.alarmweekday
+      state: 'on'
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    - condition: template
+      value_template: '{{ now().strftime("%H:%M") == states.sensor.alarm_time.state }}'
+  action:
+    - service: light.turn_on
+      entity_id: light.rgb_leds
+- alias: "Wake me up with bedroom lights for weekends"
+  hide_entity: True
+  trigger:
+    - platform: time
+      minutes: '/1'
+      seconds: 0
+  condition:
+    - condition: state
+      entity_id: input_boolean.alarmweekon
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.alarmweekday
+      state: 'off'
+    - condition: time
+      weekday:
+        - sat
+        - sun
+    - condition: template
+      value_template: '{{ now().strftime("%H:%M") == states.sensor.alarm_time_state }}'
+  action:
+    service: light.turn_on
+    entity_id: light.rgb_led
+

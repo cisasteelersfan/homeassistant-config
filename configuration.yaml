@@ -118,6 +118,31 @@ light:
     optimistic: false
     qos: 0
 
+input_number:
+  alarmhour:
+    name: Hour
+    icon: mdi:timer
+    initial: 7
+    min: 0
+    max: 23
+    step: 1
+  alarmminutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 30
+    min: 0
+    max: 59
+    step: 2
+
+input_boolean:
+  alarmweekday:
+    name: Weekdays only
+    initial: on
+    icon: mdi:calendar
+  alarmweekon:
+    name: Alarm Active
+    initial: on
+
 logger:
   default: critical
   # logs:
@@ -126,3 +151,4 @@ logger:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+sensor: !include sensors.yaml

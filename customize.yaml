@@ -1,0 +1,6 @@
+group.controllables:
+  order: 1
+group.alarmclock:
+  order: 2
+
+
