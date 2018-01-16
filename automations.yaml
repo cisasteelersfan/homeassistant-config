@@ -1,0 +1,27 @@
+- alias: Bedroom Lights On
+  trigger:
+    - platform: state
+      entity_id: device_tracker.18659071a8f4 # colby iphone
+      to: 'home'
+    - platform: sun
+      event: sunset
+  condition:
+    - condition: sun
+      after: sunset
+    - condition: time
+      before: '22:00:00'
+    - condition: state
+      entity_id: device_tracker.18659071a8f4 # colby iphone
+      state: 'home'
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.rgb_leds
+
+- alias: Bedroom Lights Off
+  trigger:
+    platform: state
+    entity_id: device_tracker.18659071a8f4 # colby iphone
+    to: not_home
+  action:
+    service: homeassistant.turn_off
+    entity_id: group.all_lights

@@ -1,0 +1,128 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 41.1587
+  longitude: -96.1385
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 356
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+    javascript_version: latest
+
+# Enables configuration UI
+config:
+
+http:
+  api_password: !secret http_password
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather prediction
+#sensor:
+#  - platform: yr
+
+# Text to speech
+# tts:
+#   - platform: google
+
+mqtt:
+  broker: localhost
+
+device_tracker:
+  - platform: ubus
+    host: 192.168.1.1
+    username: root
+    password: root
+    track_new_devices: false
+    interval_seconds: 30
+#    consider_home: 180
+
+light:
+  - platform: mqtt
+    name: "Switch 1"
+    command_topic: "rpi/switches"
+    payload_on: "sw1 on"
+    payload_off: "sw1 off"
+  - platform: mqtt
+    name: "Switch 2"
+    command_topic: "rpi/switches"
+    payload_on: "sw2 on"
+    payload_off: "sw2 off"
+  - platform: mqtt
+    name: "Switch 3"
+    command_topic: "rpi/switches"
+    payload_on: "sw3 on"
+    payload_off: "sw3 off"
+  - platform: mqtt_json
+    name: "RGB LEDs"
+    command_topic: "rpi/rgb"
+    rgb_command_topic: "rpi/rgb"
+    rgb: true
+  - platform: mqtt_json
+    name: "Porch Strip"
+    state_topic: "bruh/porch"
+    command_topic: "bruh/porch/set"
+    effect: true
+    effect_list:
+      - bpm
+      - candy cane
+      - confetti
+      - cyclon rainbow
+      - dots
+      - fire
+      - glitter
+      - juggle
+      - lightning
+      - noise
+      - police all
+      - police one
+      - rainbow
+      - rainbow with glitter
+      - ripple
+      - sinelon
+      - solid
+      - twinkle
+    brightness: true
+    flash: true
+    rgb: true
+    optimistic: false
+    qos: 0
+
+logger:
+  default: critical
+  # logs:
+  #   homeassistant.components.device_tracker: debug
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
