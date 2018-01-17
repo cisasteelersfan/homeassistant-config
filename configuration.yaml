@@ -139,9 +139,6 @@ input_boolean:
     name: Weekdays only
     initial: on
     icon: mdi:calendar
-  alarmweekon:
-    name: Alarm Active
-    initial: on
 
 logger:
   default: critical

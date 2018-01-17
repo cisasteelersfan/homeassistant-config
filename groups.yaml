@@ -15,5 +15,4 @@ alarmclock:
     - input_number.alarmhour
     - input_number.alarmminutes
     - input_boolean.alarmweekday
-    - input_boolean.alarmweekon
 

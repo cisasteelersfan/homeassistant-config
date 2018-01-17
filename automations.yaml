@@ -36,7 +36,7 @@
       seconds: 0
   condition:
     - condition: state
-      entity_id: input_boolean.alarmweekon
+      entity_id: group.alarmclock
       state: 'on'
     - condition: state
       entity_id: input_boolean.alarmweekday
@@ -61,7 +61,7 @@
       seconds: 0
   condition:
     - condition: state
-      entity_id: input_boolean.alarmweekon
+      entity_id: group.alarmclock
       state: 'on'
     - condition: state
       entity_id: input_boolean.alarmweekday
